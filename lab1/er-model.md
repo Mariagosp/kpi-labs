@@ -9,7 +9,7 @@ erDiagram
         uuid user_id PK
         varchar_100 name
         varchar_255 email UK
-        varchar_255 password
+        varchar_255 password_hash
     }
 
     WISHLIST {
