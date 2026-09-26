@@ -37,3 +37,22 @@
 
 **Commit:**
 `lab1: clarify password storage requirement`
+
+## Discrepancy 3 — Missing completion state for wishlist items
+
+Початкова модель не містила інформації про те, чи було бажання вже виконане.
+Через це модель не дозволяла явно представити стан товару, після якого він
+не повинен бути доступним для подальшого резервування.
+
+Вимоги було уточнено: wishlist item може бути позначений як виконаний,
+виконане бажання не може бути зарезервоване, а позначати бажання виконаним
+може лише власник wishlist.
+
+До `WishlistItem` додано атрибут `is_completed`.
+
+**Changed files:**
+- `spec.md`
+- `er-model.md`
+
+**Commit:**
+`lab1: add wishlist item completion requirement`

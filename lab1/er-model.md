@@ -28,6 +28,7 @@ erDiagram
         numeric_10_2 price
         text product_url
         text image_url
+        boolean is_completed
     }
 
     RESERVATION {
