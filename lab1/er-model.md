@@ -3,7 +3,7 @@ erDiagram
     USER ||--o{ WISHLIST : "creates"
     WISHLIST ||--o{ WISHLIST_ITEM : "contains"
     USER ||--o{ RESERVATION : "makes"
-    WISHLIST_ITEM ||--o{ RESERVATION : "has"
+    WISHLIST_ITEM ||--o| RESERVATION : "has"
 
     USER {
         uuid user_id PK
@@ -32,9 +32,8 @@ erDiagram
 
     RESERVATION {
         uuid reservation_id PK
-        uuid item_id FK
+        uuid item_id FK UK
         uuid user_id FK
-        date reserved_at
-        reservation_status status
+        timestamp reserved_at
     }
 ```
