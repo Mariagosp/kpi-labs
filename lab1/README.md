@@ -1,83 +1,70 @@
-# Wishlist Service — ER Model
+# Wishlist Service — ER-модель
 
-## Overview
+## Опис проєкту
 
-This project defines a conceptual Entity-Relationship (ER) model
-for a Wishlist Service — a web service that allows users to create
-and share wishlists containing products they would like to receive.
+У цьому проєкті розроблено ER-модель сервісу списків бажань (Wishlist Service). Це вебсервіс, у якому користувачі можуть створювати списки бажань і ділитися ними з іншими. До списків додаються товари, які користувачі хотіли б отримати.
 
-Other users can reserve items from public wishlists to indicate
-that they intend to fulfill those wishes.
+Інші користувачі можуть бронювати товари з відкритих списків бажань, щоб показати, що планують їх подарувати.
 
-The model focuses on the structure of the domain data, relationships
-between entities, cardinalities, primary keys, foreign keys,
-and business constraints.
+Модель описує структуру даних предметної області, зв’язки між сутностями, первинні та зовнішні ключі, а також основні бізнес-правила.
 
-## Domain
+## Предметна область
 
-The selected domain is wishlist management and item reservation.
+Предметна область проєкту - керування списками бажань і бронювання товарів.
 
-The system supports the following main concepts:
+Система передбачає такі основні поняття:
 
-- Users who create and manage wishlists.
-- Wishlists that contain items users would like to receive.
-- Wishlist items that describe desired products.
-- Reservations that allow other users to reserve items from public
-  wishlists.
+- Користувачі, які створюють і редагують списки бажань.
+- Списки бажань, що містять товари, які користувачі хотіли б отримати.
+- Елементи списків бажань, які описують бажані товари.
+- Бронювання, за допомогою яких інші користувачі можуть резервувати товари з відкритих списків бажань.
 
-The model also accounts for completed wishes, privacy of wishlists,
-and restrictions on reserving one's own items.
+Також модель враховує виконані бажання, приватність списків і заборону бронювання власних товарів.
 
-## Project Scope
+## Межі проєкту
 
-This project covers conceptual data modeling only.
+Проєкт охоплює лише концептуальне моделювання даних.
 
-It does not include SQL DDL, ORM models, application implementation,
-or physical database configuration.
+SQL-команди для створення таблиць, ORM-моделі, реалізація застосунку та налаштування фізичної бази даних не входять до його завдань.
 
-The ER model is described declaratively using Mermaid.
+ER-модель описана за допомогою Mermaid.
 
-## Project Artifacts
+## Файли проєкту
 
-- [Specification](spec.md) — entities, attributes, relationships,
-  business constraints, and acceptance criteria.
-- [ER Model](er-model.md) — declarative Mermaid ER model.
-- [Audit](audit.md) — identified discrepancies and corresponding
-  specification and model changes.
-- [Defense](DEFENSE.md) — rationale for the selected domain,
-  modeling decisions, normalization, and consistency verification.
-- [Architecture Decision Record](adr/001-reservation-model.md) —
-  documented modeling decision.
+- [Спека](spec.md) — сутності, атрибути, зв’язки, бізнес-правила та критерії приймання.
+- [ER-модель](er-model.md) — опис ER-моделі засобами Mermaid.
+- [Аудит](audit.md) — виявлені невідповідності та внесені зміни до специфікації й моделі.
+- [Захист](DEFENSE.md) — обґрунтування вибору предметної області, рішень під час моделювання, нормалізації та перевірки узгодженості.
+- [Архітектурне рішення](adr/001-reservation-model.md) — опис прийнятого рішення щодо моделі бронювання.
 
-## Main Entities
+## Основні сутності
 
-| Entity | Description |
+| Сутність | Опис |
 |---|---|
-| `User` | A registered user of the service. |
-| `Wishlist` | A list of wishes owned by a user. |
-| `WishlistItem` | An item included in a wishlist. |
-| `Reservation` | A current reservation of a wishlist item by a user. |
+| `User` | Зареєстрований користувач сервісу. |
+| `Wishlist` | Список бажань, що належить користувачу. |
+| `WishlistItem` | Товар або бажання, додане до списку. |
+| `Reservation` | Активне бронювання елемента списку бажань користувачем. |
 
-## Key Modeling Decisions
+## Основні рішення під час моделювання
 
-- All entity identifiers use the UUID type.
-- Each wishlist belongs to exactly one user.
-- Each wishlist item belongs to exactly one wishlist.
-- A wishlist item can have at most one current reservation.
-- A reservation is deleted when it is cancelled; reservation history
-  is outside the scope of the current model.
-- Passwords are represented by `password_hash`, not plaintext passwords.
-- Completed wishlist items cannot be reserved.
+- Для ідентифікаторів усіх сутностей використовується тип UUID.
+- Кожен список бажань належить рівно одному користувачу.
+- Кожен елемент належить рівно одному списку бажань.
+- Один елемент списку можна забронювати лише один раз одночасно.
+- Після скасування бронювання відповідний запис видаляється. Збереження історії бронювань не передбачено в межах поточної моделі.
+- Паролі зберігаються у вигляді хешів (`password_hash`), а не у відкритому вигляді.
+- Виконані бажання не можна бронювати.
 
-## Validation
+## Перевірка моделі
 
-The model is checked against the specification to verify:
+Модель перевіряється на відповідність специфікації за такими критеріями:
 
-- Entity and attribute consistency.
-- Primary and foreign key correctness.
-- Relationship cardinalities.
-- Identifier type consistency.
-- Business constraint coverage.
-- Avoidance of unnecessary data duplication.
+- узгодженість сутностей та їхніх атрибутів;
+- правильність первинних і зовнішніх ключів;
+- відповідність кратності зв’язків;
+- узгодженість типів ідентифікаторів;
+- врахування бізнес-правил;
+- відсутність зайвого дублювання даних.
 
-See [Audit](audit.md) for the recorded discrepancies and changes.
+Результати перевірки та зафіксовані зміни наведено у файлі [Аудит](audit.md).
