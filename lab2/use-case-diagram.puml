@@ -21,7 +21,8 @@ rectangle "Wishlist Service" {
     usecase "UC-08\nУвійти в систему" as UC08
     usecase "UC-09\nНадіслати запрошення" as UC09
     usecase "Перевірити доступність товару" as CheckItem
-    usecase "Перевірити, що список публічний" as CheckPublic
+    usecase "Перевірити публічність списку" as CheckPublic
+    usecase "Автоматично скасувати бронювання" as CancelOnComplete
 }
 
 User --> UC01
@@ -40,6 +41,10 @@ Email --> UC09
 
 UC05 ..> CheckItem : <<include>>
 UC09 ..> CheckPublic : <<include>>
-UC07 ..> UC06 : <<extend>>
+CancelOnComplete ..> UC07 : <<extend>>
+
+note right of CancelOnComplete
+  Умова: товар має активне бронювання
+end note
 
 @enduml
