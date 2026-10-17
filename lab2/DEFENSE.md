@@ -24,5 +24,5 @@
 
 ## Здача
 
-- **GitHub PR:** https://github.com/Mariagosp/kpi-labs
+- **GitHub** https://github.com/Mariagosp/kpi-labs
 - **DEFENSE:** цей заповнений файл.
