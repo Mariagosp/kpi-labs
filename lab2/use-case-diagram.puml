@@ -1,0 +1,45 @@
+
+@startuml
+left to right direction
+
+actor "Зареєстрований користувач" as User
+actor "Власник списку" as Owner
+actor "Інший користувач" as OtherUser
+actor "Email Service" as Email
+
+Owner --|> User
+OtherUser --|> User
+
+rectangle "Wishlist Service" {
+    usecase "UC-01\nСтворити список бажань" as UC01
+    usecase "UC-02\nКерувати списком бажань" as UC02
+    usecase "UC-03\nКерувати товарами списку" as UC03
+    usecase "UC-04\nПереглянути публічний список" as UC04
+    usecase "UC-05\nЗабронювати товар" as UC05
+    usecase "UC-06\nСкасувати бронювання" as UC06
+    usecase "UC-07\nПозначити товар завершеним" as UC07
+    usecase "UC-08\nУвійти в систему" as UC08
+    usecase "UC-09\nНадіслати запрошення" as UC09
+    usecase "Перевірити доступність товару" as CheckItem
+    usecase "Перевірити, що список публічний" as CheckPublic
+}
+
+User --> UC01
+User --> UC08
+
+Owner --> UC02
+Owner --> UC03
+Owner --> UC07
+Owner --> UC09
+
+OtherUser --> UC04
+OtherUser --> UC05
+OtherUser --> UC06
+
+Email --> UC09
+
+UC05 ..> CheckItem : <<include>>
+UC09 ..> CheckPublic : <<include>>
+UC07 ..> UC06 : <<extend>>
+
+@enduml
